@@ -24,7 +24,7 @@ public class OfferEntity {
 
     @Column(name = "image_url")
     private String imageUrl;
-    @Column(nullable = false)
+
     private int mileage;
     @Column(nullable = false)
     private BigDecimal price;
@@ -34,12 +34,16 @@ public class OfferEntity {
     private TransmissionEnum transmission;
 
     private int year;
+    private String description;
+
+
 
     @ManyToOne
     private ModelEntity model;
 
     @ManyToOne
     private UserEntity user;
+
 
     public OfferEntity() {
     }
@@ -98,6 +102,14 @@ public class OfferEntity {
 
     public void setYear(int year) {
         this.year = year;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public ModelEntity getModel() {

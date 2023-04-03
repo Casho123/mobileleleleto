@@ -22,6 +22,10 @@ public class CurrentUser {
         return loggedIn;
     }
 
+    public boolean isAnonymous() {
+        return !isLoggedIn();
+    }
+
     public void setLoggedIn(boolean loggedIn) {
         this.loggedIn = loggedIn;
     }

@@ -1,6 +1,7 @@
 package bg.softuni.mobileleleleto.service;
 
 import bg.softuni.mobileleleleto.models.dto.UserLoginDTO;
+import bg.softuni.mobileleleleto.models.dto.UserRegistrationDTO;
 import bg.softuni.mobileleleleto.models.entity.UserEntity;
 import bg.softuni.mobileleleleto.repository.UserRepository;
 import bg.softuni.mobileleleleto.user.CurrentUser;
@@ -27,6 +28,18 @@ public class UserService {
         this.userRepository = userRepository;
         this.currentUser = currentUser;
         this.passwordEncoder = passwordEncoder;
+    }
+
+
+    public void registerAndLogin(UserRegistrationDTO userRegistrationDTO) {
+        UserEntity newUser = new UserEntity();
+        newUser.setActive(true);
+        newUser.setEmail(userRegistrationDTO.getEmail());
+        newUser.setFirstName(userRegistrationDTO.getFirstName());
+        newUser.setLastName(userRegistrationDTO.getLastName());
+        newUser.setPassword(passwordEncoder.encode(userRegistrationDTO.getConfirmPassword()));
+        this.userRepository.save(newUser);
+        login(newUser);
     }
 
     public boolean login(UserLoginDTO userLoginDTO) {

@@ -6,6 +6,7 @@ import bg.softuni.mobileleleleto.repository.UserRepository;
 import bg.softuni.mobileleleleto.user.CurrentUser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -18,11 +19,14 @@ public class UserService {
     private final UserRepository userRepository;
     private CurrentUser currentUser;
 
+    private final PasswordEncoder passwordEncoder;
 
 
-    public UserService(UserRepository userRepository, CurrentUser currentUser) {
+
+    public UserService(UserRepository userRepository, CurrentUser currentUser, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.currentUser = currentUser;
+        this.passwordEncoder = passwordEncoder;
     }
 
     public boolean login(UserLoginDTO userLoginDTO) {
@@ -32,7 +36,10 @@ public class UserService {
             LOGGER.debug("User with name [{}] not found.", userLoginDTO.getUsername());
             return false;
         }
-        boolean success = userOpt.get().getPassword().equals(userLoginDTO.getPassword());
+        var rawPassword = userLoginDTO.getPassword();
+        var encryptedPassword= userOpt.get().getPassword();
+
+        boolean success = passwordEncoder.matches(rawPassword, encryptedPassword);
 
         if (success) {
             login((userOpt.get()));

@@ -7,6 +7,7 @@ import javax.validation.constraints.Size;
 
 public class UserRegistrationDTO {
 
+    @NotEmpty
     @Email
     private String email;
     @NotEmpty

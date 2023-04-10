@@ -3,6 +3,7 @@ package bg.softuni.mobileleleleto.service;
 import bg.softuni.mobileleleleto.models.dto.UserLoginDTO;
 import bg.softuni.mobileleleleto.models.dto.UserRegistrationDTO;
 import bg.softuni.mobileleleleto.models.entity.UserEntity;
+import bg.softuni.mobileleleleto.models.mapper.UserMapper;
 import bg.softuni.mobileleleleto.repository.UserRepository;
 import bg.softuni.mobileleleleto.user.CurrentUser;
 import org.slf4j.Logger;
@@ -20,23 +21,22 @@ public class UserService {
     private final UserRepository userRepository;
     private CurrentUser currentUser;
 
+    private final UserMapper userMapper;
+
     private final PasswordEncoder passwordEncoder;
 
 
 
-    public UserService(UserRepository userRepository, CurrentUser currentUser, PasswordEncoder passwordEncoder) {
+    public UserService(UserRepository userRepository, CurrentUser currentUser, UserMapper userMapper, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.currentUser = currentUser;
+        this.userMapper = userMapper;
         this.passwordEncoder = passwordEncoder;
     }
 
 
     public void registerAndLogin(UserRegistrationDTO userRegistrationDTO) {
-        UserEntity newUser = new UserEntity();
-        newUser.setActive(true);
-        newUser.setEmail(userRegistrationDTO.getEmail());
-        newUser.setFirstName(userRegistrationDTO.getFirstName());
-        newUser.setLastName(userRegistrationDTO.getLastName());
+        UserEntity newUser = this.userMapper.userDTOtoUserEntity(userRegistrationDTO);
         newUser.setPassword(passwordEncoder.encode(userRegistrationDTO.getConfirmPassword()));
         this.userRepository.save(newUser);
         login(newUser);
@@ -45,12 +45,12 @@ public class UserService {
     public boolean login(UserLoginDTO userLoginDTO) {
         Optional<UserEntity> userOpt = this.userRepository.findByEmail(userLoginDTO.getUsername());
 
-        if (userOpt.isEmpty()) {
+        if (!userOpt.isPresent()) {
             LOGGER.debug("User with name [{}] not found.", userLoginDTO.getUsername());
             return false;
         }
-        var rawPassword = userLoginDTO.getPassword();
-        var encryptedPassword= userOpt.get().getPassword();
+        String rawPassword = userLoginDTO.getPassword();
+        String encryptedPassword= userOpt.get().getPassword();
 
         boolean success = passwordEncoder.matches(rawPassword, encryptedPassword);
 

@@ -1,7 +1,7 @@
 package bg.softuni.mobileleleleto.models.entity;
 
-import bg.softuni.mobileleleleto.models.entity.enums.EngineEnum;
-import bg.softuni.mobileleleleto.models.entity.enums.TransmissionEnum;
+import bg.softuni.mobileleleleto.models.enums.EngineEnum;
+import bg.softuni.mobileleleleto.models.enums.TransmissionEnum;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
 

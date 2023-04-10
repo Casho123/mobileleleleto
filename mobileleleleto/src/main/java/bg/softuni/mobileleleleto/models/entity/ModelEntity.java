@@ -3,7 +3,7 @@ package bg.softuni.mobileleleleto.models.entity;
 
 
 
-import bg.softuni.mobileleleleto.models.entity.enums.CategoryEnum;
+import bg.softuni.mobileleleleto.models.enums.CategoryEnum;
 
 import javax.persistence.*;
 

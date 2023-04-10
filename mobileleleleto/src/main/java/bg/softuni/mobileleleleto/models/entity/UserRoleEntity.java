@@ -1,6 +1,6 @@
 package bg.softuni.mobileleleleto.models.entity;
 
-import bg.softuni.mobileleleleto.models.entity.enums.UserRoleEnum;
+import bg.softuni.mobileleleleto.models.enums.UserRoleEnum;
 
 import javax.persistence.*;
 

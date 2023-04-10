@@ -45,7 +45,7 @@ public class UserService {
     public boolean login(UserLoginDTO userLoginDTO) {
         Optional<UserEntity> userOpt = this.userRepository.findByEmail(userLoginDTO.getUsername());
 
-        if (!userOpt.isPresent()) {
+        if (userOpt.isEmpty()) {
             LOGGER.debug("User with name [{}] not found.", userLoginDTO.getUsername());
             return false;
         }

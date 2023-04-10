@@ -1,6 +1,8 @@
 package bg.softuni.mobileleleleto.models.dto;
 
 
+import bg.softuni.mobileleleleto.models.validation.UniqueUserEmail;
+
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
@@ -9,6 +11,7 @@ public class UserRegistrationDTO {
 
     @NotEmpty
     @Email
+    @UniqueUserEmail(message = "User email should be unique.")
     private String email;
     @NotEmpty
     @Size(min=2, max=20)

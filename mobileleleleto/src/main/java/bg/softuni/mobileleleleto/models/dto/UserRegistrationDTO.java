@@ -1,12 +1,16 @@
 package bg.softuni.mobileleleleto.models.dto;
 
 
+import bg.softuni.mobileleleleto.models.validation.FieldMatch;
 import bg.softuni.mobileleleleto.models.validation.UniqueUserEmail;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
+@FieldMatch(first = "password",
+        second = "confirmPassword",
+        message = "Passwords do not match.")
 public class UserRegistrationDTO {
 
     @NotEmpty(message = "Email must not be empty.")

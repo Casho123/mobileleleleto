@@ -2,8 +2,10 @@ package bg.softuni.mobileleleleto.models.dto;
 
 import bg.softuni.mobileleleleto.models.enums.EngineEnum;
 
-public class AddOfferDTO {
+import javax.validation.constraints.NotNull;
 
+public class AddOfferDTO {
+    @NotNull
     private EngineEnum engine;
 
     public EngineEnum getEngine() {

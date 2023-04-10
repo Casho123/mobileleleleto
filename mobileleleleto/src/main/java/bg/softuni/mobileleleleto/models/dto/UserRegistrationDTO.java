@@ -10,7 +10,7 @@ import javax.validation.constraints.Size;
 public class UserRegistrationDTO {
 
     @NotEmpty
-    @Email
+    @Email(message = "Email is required and should be valid.")
     @UniqueUserEmail(message = "User email should be unique.")
     private String email;
     @NotEmpty

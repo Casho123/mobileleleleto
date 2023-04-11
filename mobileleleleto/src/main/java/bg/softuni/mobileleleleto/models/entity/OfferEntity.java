@@ -42,7 +42,7 @@ public class OfferEntity {
     private ModelEntity model;
 
     @ManyToOne
-    private UserEntity user;
+    private UserEntity seller;
 
 
     public OfferEntity() {
@@ -120,11 +120,11 @@ public class OfferEntity {
         this.model = model;
     }
 
-    public UserEntity getUser() {
-        return user;
+    public UserEntity getSeller() {
+        return seller;
     }
 
-    public void setUser(UserEntity user) {
-        this.user = user;
+    public void setSeller(UserEntity user) {
+        this.seller = user;
     }
 }

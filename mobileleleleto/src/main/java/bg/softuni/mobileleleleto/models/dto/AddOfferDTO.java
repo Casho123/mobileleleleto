@@ -6,12 +6,24 @@ import bg.softuni.mobileleleleto.models.enums.TransmissionEnum;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
 
 public class AddOfferDTO {
 
     @NotNull
     @Min(1)
     private Long modelId;
+
+    @Positive
+    @NotNull
+    private Integer price;
+
+    @Min(1900)
+    @NotNull
+    private Integer year;
+
+    @NotEmpty
+    private String description;
 
     @NotNull
     private EngineEnum engine;

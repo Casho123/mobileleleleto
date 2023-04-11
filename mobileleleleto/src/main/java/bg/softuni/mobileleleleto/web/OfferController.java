@@ -52,7 +52,7 @@ public class OfferController {
         this.offerService.addOffer(addOfferModel);
 
 
-        return "offer-add";
+        return "redirect:/offers/all";
     }
 
 }

@@ -1,6 +1,7 @@
 package bg.softuni.mobileleleleto.web;
 
 import bg.softuni.mobileleleleto.models.dto.AddOfferDTO;
+import bg.softuni.mobileleleleto.service.BrandService;
 import bg.softuni.mobileleleleto.service.OfferService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,9 +16,11 @@ import javax.validation.Valid;
 public class OfferController {
 
     private final OfferService offerService;
+    private final BrandService brandService;
 
-    public OfferController(OfferService offerService) {
+    public OfferController(OfferService offerService, BrandService brandService) {
         this.offerService = offerService;
+        this.brandService = brandService;
     }
 
 
@@ -31,6 +34,7 @@ public class OfferController {
         if (!model.containsAttribute("addOfferModel")) {
             model.addAttribute("addOfferModel", new AddOfferDTO());
         }
+        model.addAttribute("brands", brandService.getAllBrands());
         return "offer-add";
     }
 
@@ -45,6 +49,7 @@ public class OfferController {
         }
 
         //TODO
+        this.offerService.addOffer(addOfferModel);
 
 
         return "offer-add";

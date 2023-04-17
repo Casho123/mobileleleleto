@@ -10,15 +10,16 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.crypto.password.Pbkdf2PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 public class SecurityConfig {
 
-    @Bean
-    UserDetailsService userDetailsService(UserRepository userRepository) {
-        return new MobileleleUserDetailsService(userRepository);
-    }
 
+    //Here we have to expose 3 things:
+    // 1. PasswordEncoder
+    // 2. SecurityFilterChain
+    // 3. UserDetailsService
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new Pbkdf2PasswordEncoder();
@@ -27,12 +28,33 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
-        http
-                .authorizeRequests()
-                .antMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
-                .
+        http.
+                authorizeRequests().
+                requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll().
+                antMatchers("/", "/users/login", "/users/register").permitAll().
+                anyRequest().
+                authenticated().
+                and().
+                formLogin().
+                loginPage("/users/login").
+                usernameParameter(UsernamePasswordAuthenticationFilter.SPRING_SECURITY_FORM_USERNAME_KEY).
+                passwordParameter(UsernamePasswordAuthenticationFilter.SPRING_SECURITY_FORM_PASSWORD_KEY).
+                defaultSuccessUrl("/").
+                failureForwardUrl("/users/login-error").
+                and().
+                logout().
+                logoutUrl("/users/logout").
+                logoutSuccessUrl("/").
+                invalidateHttpSession(true);
+
+        return http.build();
     }
 
+
+    @Bean
+    UserDetailsService userDetailsService(UserRepository userRepository) {
+        return new MobileleleUserDetailsService(userRepository);
+    }
 
 
 }

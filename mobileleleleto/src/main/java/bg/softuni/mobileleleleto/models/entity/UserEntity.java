@@ -1,9 +1,8 @@
 package bg.softuni.mobileleleleto.models.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.ManyToMany;
-import javax.persistence.Table;
+import org.hibernate.annotations.Fetch;
+
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,7 +23,7 @@ public class UserEntity extends BaseEntity {
     @Column(name = "image_url")
     private String imageUrl;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     private List<UserRoleEntity> userRoles = new ArrayList<>();
 
     public UserEntity() {

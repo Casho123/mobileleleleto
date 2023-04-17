@@ -20,7 +20,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="mobileleleleto" target="11" />
+      <module name="mobileleleleto" target="16" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">

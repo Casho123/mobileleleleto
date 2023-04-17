@@ -8,27 +8,26 @@ import bg.softuni.mobileleleleto.models.mapper.OfferMapper;
 import bg.softuni.mobileleleleto.repository.ModelRepository;
 import bg.softuni.mobileleleleto.repository.OfferRepository;
 import bg.softuni.mobileleleleto.repository.UserRepository;
-import bg.softuni.mobileleleleto.user.CurrentUser;
+
 import org.springframework.stereotype.Service;
 
 @Service
 public class OfferService {
 
     private final OfferRepository offerRepository;
-
     private final ModelRepository modelRepository;
     private final OfferMapper offerMapper;
-
     private final UserRepository userRepository;
 
-    private CurrentUser currentUser;
 
-    public OfferService(OfferRepository offerRepository, ModelRepository modelRepository, OfferMapper offerMapper, UserRepository userRepository, CurrentUser currentUser) {
+    public OfferService(OfferRepository offerRepository,
+                        ModelRepository modelRepository, OfferMapper offerMapper,
+                        UserRepository userRepository) {
         this.offerRepository = offerRepository;
         this.modelRepository = modelRepository;
         this.offerMapper = offerMapper;
         this.userRepository = userRepository;
-        this.currentUser = currentUser;
+
     }
 
 
@@ -38,13 +37,13 @@ public class OfferService {
 
 
         //TODO - current user should be logged in
-
-        UserEntity seller = this.userRepository.findByEmail(currentUser.getEmail())
-                .orElseThrow();
+//
+//        UserEntity seller = this.userRepository.findByEmail(currentUser.getEmail())
+//                .orElseThrow();
         ModelEntity model = this.modelRepository.findById(addOfferDTO.getModelId())
                 .orElseThrow();
         newOffer.setModel(model);
-        newOffer.setSeller(seller);
+//        newOffer.setSeller(seller);
 
         this.offerRepository.save(newOffer);
     }

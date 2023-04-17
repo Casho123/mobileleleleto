@@ -7,11 +7,11 @@ import java.util.Collection;
 
 public class MobileleUserDetails implements UserDetails {
 
-    private String password;
-    private String username;
-    private String firstName;
-    private String lastName;
-    private Collection<GrantedAuthority> authorities;
+    private final String password;
+    private final String username;
+    private final String firstName;
+    private final String lastName;
+    private final Collection<GrantedAuthority> authorities;
 
     public MobileleUserDetails(String password, String username,
                                String firstName, String lastName,
@@ -24,19 +24,27 @@ public class MobileleUserDetails implements UserDetails {
         this.authorities = authorities;
     }
 
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        return authorities;
     }
 
     @Override
     public String getPassword() {
-        return null;
+        return password;
     }
 
     @Override
     public String getUsername() {
-        return null;
+        return username;
     }
 
     @Override

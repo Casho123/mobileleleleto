@@ -33,26 +33,24 @@ public class OfferController {
 
     @GetMapping("/offers/add")
     public String addOffer(Model model) {
-        if (!model.containsAttribute("addOfferModel")) {
-            model.addAttribute("addOfferModel", new AddOfferDTO());
+        if (!model.containsAttribute("addOfferDTO")) {
+            model.addAttribute("addOfferDTO", new AddOfferDTO());
         }
         model.addAttribute("brands", brandService.getAllBrands());
         return "offer-add";
     }
 
     @PostMapping("/offers/add")
-    public String addOffer(@Valid AddOfferDTO addOfferModel,
+    public String addOffer(@Valid AddOfferDTO addOfferDTO,
                            BindingResult bindingResult,
                            RedirectAttributes redirectAttributes,
                            @AuthenticationPrincipal UserDetails userDetails) {
         if (bindingResult.hasErrors()) {
-            redirectAttributes.addFlashAttribute("addOfferModel", addOfferModel);
-            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.addOfferModel", bindingResult);
+            redirectAttributes.addFlashAttribute("addOfferDTO", addOfferDTO);
+            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.addOfferDTO", bindingResult);
             return "redirect:/offers/add";
         }
-
-        //TODO
-        this.offerService.addOffer(addOfferModel, userDetails);
+        this.offerService.addOffer(addOfferDTO, userDetails);
 
         return "redirect:/offers/all";
     }

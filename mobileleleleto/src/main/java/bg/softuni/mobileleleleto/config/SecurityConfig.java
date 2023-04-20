@@ -16,7 +16,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class SecurityConfig {
 
 
-    //Here we have to expose 3 things:
+    //Here we expose 3 things:
     // 1. PasswordEncoder
     // 2. SecurityFilterChain
     // 3. UserDetailsService

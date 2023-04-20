@@ -36,8 +36,6 @@ public class OfferEntity {
     private int year;
     private String description;
 
-
-
     @ManyToOne
     private ModelEntity model;
 

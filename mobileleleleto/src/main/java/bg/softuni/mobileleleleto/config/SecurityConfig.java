@@ -48,6 +48,8 @@ public class SecurityConfig {
                 logoutSuccessUrl("/").
                 invalidateHttpSession(true);
 
+        http.csrf().disable();
+
         return http.build();
     }
 

@@ -1,11 +1,15 @@
 package bg.softuni.mobileleleleto.service;
 
-import bg.softuni.mobileleleleto.models.dto.UserLoginDTO;
 import bg.softuni.mobileleleleto.models.dto.UserRegistrationDTO;
 import bg.softuni.mobileleleleto.models.entity.UserEntity;
 import bg.softuni.mobileleleleto.models.mapper.UserMapper;
 import bg.softuni.mobileleleleto.repository.UserRepository;
 
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -18,12 +22,15 @@ public class UserService {
 
     private final PasswordEncoder passwordEncoder;
 
+    private final UserDetailsService userDetailsService;
 
 
-    public UserService(UserRepository userRepository,  UserMapper userMapper, PasswordEncoder passwordEncoder) {
+
+    public UserService(UserRepository userRepository, UserMapper userMapper, PasswordEncoder passwordEncoder, UserDetailsService userDetailsService) {
         this.userRepository = userRepository;
         this.userMapper = userMapper;
         this.passwordEncoder = passwordEncoder;
+        this.userDetailsService = userDetailsService;
     }
 
 
@@ -37,7 +44,18 @@ public class UserService {
 
 
     private void login(UserEntity userEntity) {
-        //TODO
+        UserDetails userDetails = userDetailsService.loadUserByUsername(userEntity.getEmail());
+
+        Authentication auth = new UsernamePasswordAuthenticationToken(
+                userDetails,
+                userDetails.getPassword(),
+                userDetails.getAuthorities()
+        );
+
+        SecurityContextHolder
+                .getContext()
+                .setAuthentication(auth);
+
     }
 
 

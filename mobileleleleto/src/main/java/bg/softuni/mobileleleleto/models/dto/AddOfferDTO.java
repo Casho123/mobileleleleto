@@ -21,6 +21,9 @@ public class AddOfferDTO {
     @Min(1900)
     @NotNull
     private Integer year;
+    @Positive
+    @NotNull
+    private Integer mileage;
 
     @NotEmpty
     private String description;
@@ -64,5 +67,37 @@ public class AddOfferDTO {
 
     public void setTransmission(TransmissionEnum transmission) {
         this.transmission = transmission;
+    }
+
+    public Integer getPrice() {
+        return price;
+    }
+
+    public void setPrice(Integer price) {
+        this.price = price;
+    }
+
+    public Integer getYear() {
+        return year;
+    }
+
+    public void setYear(Integer year) {
+        this.year = year;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Integer getMileage() {
+        return mileage;
+    }
+
+    public void setMileage(Integer mileage) {
+        this.mileage = mileage;
     }
 }

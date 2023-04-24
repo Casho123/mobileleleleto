@@ -29,8 +29,10 @@ public class EmailService {
             MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage);
             mimeMessageHelper.setFrom("mobilelele@mobilelele.com");
             mimeMessageHelper.setTo(userEmail);
-            mimeMessageHelper.setSubject("Welcome!");
-            mimeMessageHelper.setText(generateMessageContent(userEmail), true);
+            mimeMessageHelper.setSubject("Welcome, Bunny!!!");
+            mimeMessageHelper.setText(generateMessageContent(userName), true);
+
+            javaMailSender.send(mimeMessageHelper.getMimeMessage());
         } catch (MessagingException e) {
             throw new RuntimeException(e);
         }

@@ -24,13 +24,16 @@ public class UserService {
 
     private final UserDetailsService userDetailsService;
 
+    private final EmailService emailService;
 
 
-    public UserService(UserRepository userRepository, UserMapper userMapper, PasswordEncoder passwordEncoder, UserDetailsService userDetailsService) {
+
+    public UserService(UserRepository userRepository, UserMapper userMapper, PasswordEncoder passwordEncoder, UserDetailsService userDetailsService, EmailService emailService) {
         this.userRepository = userRepository;
         this.userMapper = userMapper;
         this.passwordEncoder = passwordEncoder;
         this.userDetailsService = userDetailsService;
+        this.emailService = emailService;
     }
 
 
@@ -39,6 +42,8 @@ public class UserService {
         newUser.setPassword(passwordEncoder.encode(userRegistrationDTO.getConfirmPassword()));
         this.userRepository.save(newUser);
         login(newUser);
+        emailService.sendRegistrationEmail(newUser.getEmail(),
+                newUser.getFirstName() + " " + newUser.getLastName());
     }
 
 

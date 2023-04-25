@@ -42,8 +42,8 @@ public class UserService {
         newUser.setPassword(passwordEncoder.encode(userRegistrationDTO.getConfirmPassword()));
         this.userRepository.save(newUser);
         login(newUser);
-        emailService.sendRegistrationEmail(newUser.getEmail(),
-                newUser.getFirstName() + " " + newUser.getLastName());
+//        emailService.sendRegistrationEmail(newUser.getEmail(),
+//                newUser.getFirstName() + " " + newUser.getLastName());
     }
 
 

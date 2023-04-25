@@ -22,12 +22,12 @@ public class EmailService {
 
     public void sendRegistrationEmail(String userEmail,
                                       String userName) {
-        MimeMessage mimeMessage = javaMailSender.createMimeMessage();
 
+        MimeMessage mimeMessage = javaMailSender.createMimeMessage();
 
         try {
             MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage);
-            mimeMessageHelper.setFrom("mobilelele@mobilelele.com");
+            mimeMessageHelper.setFrom("mobilele@mobilele.com");
             mimeMessageHelper.setTo(userEmail);
             mimeMessageHelper.setSubject("Welcome, Bunny!!!");
             mimeMessageHelper.setText(generateMessageContent(userName), true);
